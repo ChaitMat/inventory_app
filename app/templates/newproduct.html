@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <h1>New Product</h1>
+        <form method = 'POST'>
+            {{form.hidden_tag()}}
+            {{form.productName.label}}{{form.productName()}}
+            {{form.submit()}}
+        </form>
+
+    </body>
+</html>
+
