@@ -1,9 +1,9 @@
 from flask import render_template, redirect, url_for, request,session
 from . import main
-from .forms import ProductForm, LocationForm
+from .forms import ProductForm, LocationForm, AddProductForm
 from .. import db
-from ..models import Product,Location
-from .tables import ProductsTable, LocationsTable
+from ..models import Product,Location,ProductMovement
+from .tables import ProductsTable, LocationsTable, ProductsMovementTable
 
 
 @main.route('/')
@@ -119,6 +119,38 @@ def deleteLocation(id):
     db.session.delete(location)
     db.session.commit()
     return redirect(url_for('.viewLocations'))
+
+
+@main.route('/productmovements')
+def viewProductMovements():
+
+    productmovements = ProductMovement.query.all()
+
+    table = ProductsMovementTable(productmovements)
+
+    table.border = True
+
+    return render_template('productsmovements.html', table = table)
+
+
+@main.route('/locations/<int:id>/addproduct', methods = ['GET', 'POST'])
+def addProduct(id):
+
+    location = Location.query.get_or_404(id)
+
+    form = AddProductForm()
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            print(form.selectproduct.data)
+            # new_movement = ProductMovement(to_location = location, product_id = form.selectproduct.data, qty = form.qty.data)
+            # db.session.add(new_movement)
+            # db.session.commit()
+            return redirect(url_for('.viewLocations'))
+
+    return render_template('addproduct.html', form = form)
+
+
 
 
     

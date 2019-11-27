@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <h1>Add Product to location </h1>
+        <form method = 'POST'>
+            {{form.hidden_tag()}}
+            {{form.selectproduct.label}}{{form.selectproduct()}}
+            {{form.qty.label}}{{form.qty()}}
+            {{form.submit()}}
+        </form>
+
+    </body>
+</html>
